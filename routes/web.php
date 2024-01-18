@@ -14,17 +14,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\Post\PostController::class, 'index'])->name('home')->middleware('auth');
 
-Route::get('/my-posts', [App\Http\Controllers\Post\PostController::class, 'showMyPosts'])->name('post.show');
-Route::get('/create-post', [App\Http\Controllers\Post\PostController::class, 'create'])->name('post.create');
-Route::post('/store-post', [App\Http\Controllers\Post\PostController::class, 'store'])->name('post.store');
+//use group to merge all the routes with the same prefix
+Route::group(["prefix" => "posts", "middleware" => "auth"], function () {
+    
+    //route to home with all posts from other users
+    Route::get('/home', [App\Http\Controllers\Post\PostController::class, 'index'])->name('home');
 
-Route::get('/edit-post/{id}', [App\Http\Controllers\Post\PostController::class, 'edit'])->name('post.edit');
-Route::post('/update-post/{id}', [App\Http\Controllers\Post\PostController::class, 'update'])->name('post.update');
-Route::any('/delete-post/{id}', [App\Http\Controllers\Post\PostController::class, 'delete'])->name('post.delete');
+    //show my post list only
+    Route::get('/my-posts', [App\Http\Controllers\Post\PostController::class, 'showMyPosts'])->name('post.show');
+
+    //routes to point the creation post form and to store new one
+    Route::get('/create-post', [App\Http\Controllers\Post\PostController::class, 'create'])->name('post.create');
+    Route::post('/store-post', [App\Http\Controllers\Post\PostController::class, 'store'])->name('post.store');
+
+    //routes to edit and update post selected record
+    Route::get('/edit-post/{id}', [App\Http\Controllers\Post\PostController::class, 'edit'])->name('post.edit');
+    Route::post('/update-post/{id}', [App\Http\Controllers\Post\PostController::class, 'update'])->name('post.update');
+
+    //route to delete a record
+    Route::any('/delete-post/{id}', [App\Http\Controllers\Post\PostController::class, 'destroy'])->name('post.delete');
+});
