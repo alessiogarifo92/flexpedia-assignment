@@ -31,10 +31,11 @@ touch database/blog_post.sqlite
 ```
 
  And update the `.env` file with:
- ## DB_CONNECTION=sqlite
- ## DB_DATABASE= absolute/path/to/database/sqlite
- ## DB_FOREIGN_KEYS=true
-
+ ```bash
+ DB_CONNECTION=sqlite
+ DB_DATABASE= absolute/path/to/database/sqlite
+ DB_FOREIGN_KEYS=true
+```
 
 7. Run the database migrations
 ```bash
