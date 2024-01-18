@@ -57,4 +57,6 @@ and use the command:
 ```bash
 npm install;npm run dev
 ```
-
+## Application 
+The first page of the application will be the login page. From here you can login with an email from the sqlite(N.B the standard password to use is: **password**;
+Otherwise you can access with a new user going to **register** and filling the form.
