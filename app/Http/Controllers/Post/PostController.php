@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Post;
 
+use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 use Auth;
@@ -64,22 +65,48 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post = BlogPost::findOrFail($id);
+
+        if ($post) {
+
+            return view('posts.editPost', compact('post'));
+        }
+
+        return redirect()->route('posts.show')->with(['error' => 'Post selected not found. Try again later!']);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified post in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        //validation of input fields
+        $request->validate([
+            'title' => 'required | max:100',
+            'content' => 'required | max:255',
+        ]);
+
+        //find the post from id
+        $post = BlogPost::findOrFail($id);
+
+        //update only the title and content
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->save();
+
+
+        return redirect()->route('post.show')->with(['success' => 'Post updated successfully!']);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified post from storage.
      */
-    public function destroy(string $id)
+    public function delete(string $id)
     {
-        //
+        $postToDelete = BlogPost::where('id', $id)->delete();
+
+        if ($postToDelete) {
+            return redirect()->route('post.show')->with(['success' => 'Post deleted from your posts list successfully!']);
+        }
     }
 }

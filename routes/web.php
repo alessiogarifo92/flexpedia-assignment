@@ -19,8 +19,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\PostController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/home', [App\Http\Controllers\Post\PostController::class, 'index'])->name('home')->middleware('auth');
 
-Route::get('/my-posts', [App\Http\Controllers\PostController::class, 'showMyPosts'])->name('show.my.posts');
-Route::get('/create-post', [App\Http\Controllers\PostController::class, 'create'])->name('create.post');
-Route::post('/store-post', [App\Http\Controllers\PostController::class, 'store'])->name('store.posts');
+Route::get('/my-posts', [App\Http\Controllers\Post\PostController::class, 'showMyPosts'])->name('post.show');
+Route::get('/create-post', [App\Http\Controllers\Post\PostController::class, 'create'])->name('post.create');
+Route::post('/store-post', [App\Http\Controllers\Post\PostController::class, 'store'])->name('post.store');
+
+Route::get('/edit-post/{id}', [App\Http\Controllers\Post\PostController::class, 'edit'])->name('post.edit');
+Route::post('/update-post/{id}', [App\Http\Controllers\Post\PostController::class, 'update'])->name('post.update');
+Route::any('/delete-post/{id}', [App\Http\Controllers\Post\PostController::class, 'delete'])->name('post.delete');
