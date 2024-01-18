@@ -55,6 +55,6 @@ php artisan serve
 
 and use the command:
 ```bash
-npm run dev
+npm install;npm run dev
 ```
 
