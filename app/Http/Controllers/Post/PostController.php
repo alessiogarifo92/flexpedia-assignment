@@ -62,10 +62,10 @@ class PostController extends Controller
 
         // Check if the blog post was created successfully
         if ($blogPost) {
-            return redirect()->route('show.my.posts')->with('success', 'New Post added successfully!');
+            return redirect()->route('post.show')->with('success', 'New Post added successfully!');
         }
 
-        return redirect()->route('show.my.posts')->with('error', 'Error while trying to add new post. Try again in a few minutes!');
+        return redirect()->route('post.show')->with('error', 'Error while trying to add new post. Try again in a few minutes!');
     }
 
     /**
@@ -100,7 +100,7 @@ class PostController extends Controller
             return view('posts.editPost', compact('post'));
         }
 
-        return redirect()->route('posts.show')->with(['error' => 'Post selected not found. Try again later!']);
+        return redirect()->route('post.show')->with(['error' => 'Post selected not found. Try again later!']);
     }
 
     /**
