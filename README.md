@@ -31,10 +31,11 @@ touch database/blog_post.sqlite
 ```
 
  And update the `.env` file with:
- ## DB_CONNECTION=sqlite
- ## DB_DATABASE= absolute/path/to/database/sqlite
- ## DB_FOREIGN_KEYS=true
-
+ ```bash
+ DB_CONNECTION=sqlite
+ DB_DATABASE= absolute/path/to/database/sqlite
+ DB_FOREIGN_KEYS=true
+```
 
 7. Run the database migrations
 ```bash
@@ -54,6 +55,8 @@ php artisan serve
 
 and use the command:
 ```bash
-npm run dev
+npm install;npm run dev
 ```
-
+## Application 
+The first page of the application will be the login page. From here you can login with an email from the sqlite(N.B the standard password to use is: **password**;
+Otherwise you can access with a new user going to **register** and filling the form.
